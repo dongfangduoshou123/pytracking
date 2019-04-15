@@ -77,6 +77,22 @@ class Tracker:
         tracker = self.tracker_class(self.parameters)
 
         tracker.track_webcam()
+        
+    def run_video(self, videofilepath, optional_box=None, debug=None):
+        """Run the tracker with the webcam.
+        args:
+            debug: Debug level.
+        """
+
+        debug_ = debug
+        if debug is None:
+            debug_ = self.default_debug
+        self.parameters.debug = debug_
+
+        self.parameters.tracker_name = self.name
+        self.parameters.param_name = self.parameter_name
+        tracker = self.tracker_class(self.parameters)
+        tracker.track_videofile(videofilepath, optional_box)
 
     def get_parameters(self):
         """Get parameters."""
